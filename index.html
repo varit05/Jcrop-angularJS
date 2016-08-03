@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>ng-jcrop demo</title>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css" />
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-animate.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.0.js"></script>
+  <script src="ng-jcrop.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body ng-app="ngJcropDemo">
+  <div class="container">
+    <h1>ng-jcrop demo page</h1>
+
+    <div class="row" ng-controller="DemoControllerUpload">
+      <div class="col-xs-12">
+        <h2>Upload an image</h2>
+        <input type="file" ng-jcrop-input="upload" value="upload" onchange="angular.element(this).scope().openDialog()" />
+        <script type="text/ng-template" id="myModalContent.html">
+          <div class="modal-header">
+            <h3 class="modal-title">Adjust your Image!</h3>
+          </div>
+          <div class="modal-body">
+            <div ng-if="settings.crop" ng-jcrop="obj.src" ng-jcrop-config-name="upload" selection="obj.selection"></div>
+            <canvas id="canvas" height="5" width="5"></canvas>
+            <div ng-if="settings.upload">
+              <img src="{{img.src}}" ng-hide="img.src" alt="img.src" sb-load="onImgLoad($event)">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-if="settings.crop" ng-click="crop()">crop</button>
+            <button class="btn btn-primary" type="button" ng-if="settings.upload" ng-click="upload()">upload</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+          </div>
+        </script>
+      </div>
+    </div>
+    <canvas id="canvas" height="5" width="5"></canvas>
+  </div>
+</body>
+
+</html>
